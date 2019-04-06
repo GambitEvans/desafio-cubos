@@ -1,14 +1,9 @@
-import lowdb from 'lowdb';
+import * as lowdb from 'lowdb';
 import * as FileSync from 'lowdb/adapters/FileSync';
 
-const adapter = new FileSync('src/db.json');
+const adapter:FileSync = new FileSync('./src/db.json');
+const database:lowdb = lowdb(adapter);
 
-const Database = {
-  initialize: () => 
-    lowdb(adapter)
-      .then(db => db.defaults({ schedules: [] }).write())
-  ,
-  getConnection: () => lowdb(adapter)
-};
+database.defaults({ sequence_scheduling: 0, scheduling: []}).write()
 
-export default Database;
+export default database;
