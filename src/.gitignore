@@ -1,4 +1,4 @@
-./node_modules
+../node_modules
 public
 package-lock.json
 db.json
