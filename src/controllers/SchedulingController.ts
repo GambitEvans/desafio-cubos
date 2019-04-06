@@ -18,20 +18,21 @@ export class SchedulingController {
         return 'Tem algo de errado com o interval informado';
     }
 
-    // @GET
-    // @Path(':schedule')  
-    // getSchedulingBySchedule(@PathParam('schedule') schedule: Schedule): Scheduling{
-    //     return this.service.getSchedulingBySchedule(schedule);
-    // }
-
     @POST
-    createScheduling(scheduling: Scheduling){
-        return this.service.postScheduling(scheduling);
+    createScheduling(scheduling: Scheduling): string {
+        if(this.Util.schedulingIsValid(scheduling)){
+            scheduling._id = this.service.getSequence();
+            this.service.postScheduling(scheduling);
+            this.service.updateSequence(scheduling._id);
+            return 'Agendamento realizado com sucesso.'
+        }
+        return 'Há algo errado com os dados que você inserir.';
     }
 
     @DELETE
     @Path(':id')
-    deleteScheduling(@PathParam('id') id: number){
-        return this.service.remove(id);
+    deleteScheduling(@PathParam('id') id: number): string {
+        this.service.remove(id)
+        return 'agendamento com o id ' + id + ' deletado com sucesso';
     }
 }

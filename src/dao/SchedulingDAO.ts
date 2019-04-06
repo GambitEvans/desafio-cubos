@@ -5,7 +5,7 @@ import BaseDAO from './BaseDao';
 export default class SchedulingDAO extends BaseDAO {
     //get the next id available for insertion.
     getSequence(){
-        this.getEntity('sequence_scheduling').value();
+        return this.getEntity('sequence_scheduling').value();
     }
 
     //generates the next id available for insertion.
@@ -36,7 +36,11 @@ export default class SchedulingDAO extends BaseDAO {
 
     //verifies if exists a scheduling for a given date.
     existScheduling(date: Date): boolean{
-        if(this.getEntity('scheduling').find({_day: date}).value()==null)return true;
+        if(this.getEntity('scheduling').find({_date: date}).value()!==null)return true;
         return false;
+    }
+
+    getIntervalsByDate(date: Date): Scheduling {
+        return this.getEntity('scheduling').find({_date: date}).value();
     }
 }
