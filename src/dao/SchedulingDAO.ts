@@ -1,6 +1,6 @@
 import Scheduling from '../models/Scheduling';
-import Interval from '../models/Interval'
 import BaseDAO from './BaseDao';
+import Interval from 'src/models/Interval';
 
 export default class SchedulingDAO extends BaseDAO {
     //get the next id available for insertion.
@@ -15,13 +15,8 @@ export default class SchedulingDAO extends BaseDAO {
     }
 
     //get all the schedules.
-    getAll(){
+    getAll(): Scheduling[]{
         return this.getEntity('scheduling').values();
-    }
-
-    //picks up all schedules based on a given date range.
-    getSchedulingByInterval(interval: Interval): Scheduling[]{
-        return this.getEntity('scheduling').find({ _interval: interval }).value();
     }
 
     //creates a scheduling
@@ -31,16 +26,20 @@ export default class SchedulingDAO extends BaseDAO {
 
     //removes a scheduling
     removeScheduling(id: number){
-        return this.db.get('scheduling').remove({_id: id}).write();
+        return this.db.get('scheduling').remove({ _id: id }).write();
     }
 
     //verifies if exists a scheduling for a given date.
     existScheduling(date: Date): boolean{
-        if(this.getEntity('scheduling').find({_date: date}).value()!==null)return true;
+        if(this.getEntity('scheduling').find({ _date: date }).value()!=null)return true;
         return false;
     }
 
-    getIntervalsByDate(date: Date): Scheduling {
-        return this.getEntity('scheduling').find({_date: date}).value();
+    getSchedulingsByDate(date: Date): Scheduling {
+        return this.getEntity('scheduling').find({ _date: date }).value();
+    }
+
+    insertInterval(date: Date, interval: Interval){
+        return this.getEntity('scheduling').find({ _date: date }).get('_interval').push(interval).write();
     }
 }

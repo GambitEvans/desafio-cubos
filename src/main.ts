@@ -8,7 +8,7 @@ Server.buildServices(app);
 
 async function bootstrap() {
   await app.listen(3000, () => {
-    console.log('server rodando');
+    console.log('Listening on port 3000');
   });
 }
 bootstrap();
