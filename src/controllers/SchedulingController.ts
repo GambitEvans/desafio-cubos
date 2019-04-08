@@ -51,6 +51,6 @@ export class SchedulingController {
     @Path(':id')
     deleteScheduling(@PathParam('id') id: number): string {
         this.service.remove(id)
-        return 'agendamento com o id ' + id + ' deletado com sucesso';
+        return `Agendamento com o id ${id} deletado com sucesso`;
     }
 }

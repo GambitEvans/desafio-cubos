@@ -5,7 +5,6 @@ import * as moment from "moment";
 import Schedule from 'src/models/Schedule';
 import SchedulingUtils from 'src/utils/SchedulingUtils';
 import DateRange from 'src/dto/DateRangeDTO';
-import { identity } from 'rxjs';
 
 export default class SchedulingService extends SchedulingDAO {
     
@@ -13,16 +12,16 @@ export default class SchedulingService extends SchedulingDAO {
 
     getAllByInterval(dateRange: DateRange): Scheduling[] {
         const start = moment(dateRange._start, 'DD-MM-YYYY');
-        const end = moment(dateRange._end, 'DD-MM-YYYY')
+        const end = moment(dateRange._end, 'DD-MM-YYYY');
         const resultado: Scheduling[] = this.getAll().filter(item => {
-            const data = moment(item._date, 'DD-MM-YYYY');
-            if(data.isBetween(start, end))return item;
+            const date = moment(item._date, 'DD-MM-YYYY');
+            if(date.isBetween(start, end))return item;
         });
         return resultado;
     }
     
     postScheduling(schedule: Schedule): string{
-            try{
+        try{
             const scheduling = this.schedulingUtis.initScheduling(schedule);
             if(this.existScheduling(schedule._date)){
                 const intervals = this.getSchedulingsByDate(schedule._date)._interval;
