@@ -1,4 +1,3 @@
-import { NestFactory } from '@nestjs/core';
 import app from './settings/server';
 import { Server } from 'typescript-rest';
 import * as SchedulingRoutes from './controllers/SchedulingController';

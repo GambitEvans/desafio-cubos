@@ -5,9 +5,9 @@ import DateRangeDTO from '../dto/DateRangeDTO';
 
 export default class ValidationUtil {
     validateInterval(interval: Interval): boolean{
-        const start = moment(interval._start, 'HH:mm');
-        const end = moment(interval._end, 'HH:mm');
-        if(start.isAfter(end))return false;
+        const start = moment(interval._start, 'HH:mm', true);
+        const end = moment(interval._end, 'HH:mm', true);
+        if(!start.isValid() || !end.isValid() || start.isAfter(end))return false;
         return true;
     }
 

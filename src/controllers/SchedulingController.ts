@@ -5,12 +5,11 @@ import Validations from '../utils/ValidationUtil';
 import ScheduleDTO from '../dto/ScheduleDTO';
 import SchedulingUtils from '../utils/SchedulingUtils';
 import Schedule from '../models/Schedule';
-import moment = require('moment');
 import DateUtils from '../utils/DateUtils';
 import DateRangeDTO from '../dto/DateRangeDTO';
 
 @Path('/schedules')
-export class SchedulingController {
+export default class SchedulingController {
     Util = new Validations();
     DateUtils = new DateUtils();
     schedulingUtils = new SchedulingUtils()
@@ -41,9 +40,7 @@ export class SchedulingController {
             }
             return 'Há algo errado com os dados que você inserir.';
         } catch(e) {
-            return `Data de hoje incompatível com a regra de agendamento \n
-            Data - ${moment().format('DD-MM-YYYY')},  ${this.DateUtils.getWeekDayByIndex(moment().weekday())}\n
-            Regra de disponibilidade - Todo dia de ${this.DateUtils.getWeekDayByIndex(scheduleDTO.day)}.`
+            return e;
         }
     }
 

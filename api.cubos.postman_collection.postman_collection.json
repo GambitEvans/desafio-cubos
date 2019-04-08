@@ -1,0 +1,197 @@
+{
+	"info": {
+		"_postman_id": "668d0a93-39e3-4068-8462-4a50add1252c",
+		"name": "api.cubos.postman_collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3000/schedules/0",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/schedules/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"schedules",
+						"0"
+					]
+				},
+				"description": "Removes a scheduling based on a given id"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/schedules",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"type\": \"DAY\",\n\t\"date\": \"29-04-2019\",\n\t\"interval\": { \n\t\t\"_start\": \"20:30\", \n\t\t\"_end\": \"21:00\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/schedules",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"schedules"
+					]
+				},
+				"description": "creates a day type schedule\n{\n\t\"type\": \"DAY\",\n\t\"date\": \"29-04-2019\",\n\t\"interval\": { \n\t\t\"_start\": \"20:30\", \n\t\t\"_end\": \"21:00\"\n\t}\n}"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/schedules",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"type\": \"WEEKLY\",\n\t\"day\": \"1\",\n\t\"interval\": { \n\t\t\"_start\": \"20:30\", \n\t\t\"_end\": \"21:00\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/schedules",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"schedules"
+					]
+				},
+				"description": "Creates a weekly type schedule.\n{\n\t\"type\": \"WEEKLY\",\n\t\"day\": \"1\",\n\t\"interval\": { \n\t\t\"_start\": \"20:30\", \n\t\t\"_end\": \"21:00\"\n\t}\n}"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/schedules",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"type\": \"DAILY\",\n\t\"interval\": { \n\t\t\"_start\": \"20:30\", \n\t\t\"_end\": \"21:00\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/schedules",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"schedules"
+					]
+				},
+				"description": "Creates a daily type schedule.\n{\n\t\"type\": \"DAILY\",\n\t\"interval\": { \n\t\t\"_start\": \"20:30\", \n\t\t\"_end\": \"21:00\"\n\t}\n}"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/schedules/by",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"_start\": \"07-04-2019\",\n\t\"_end\": \"11-04-2019\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/schedules/by",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"schedules",
+						"by"
+					]
+				},
+				"description": "Get all the schedulings based on a date range\n{\n\t\"_start\": \"07-04-2019\",\n\t\"_end\": \"11-04-2019\"\n}"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/schedules/",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"_start\": \"07-04-2019\",\n\t\"_end\": \"11-04-2019\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/schedules/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"schedules",
+						""
+					]
+				},
+				"description": "Get all the schedulings."
+			},
+			"response": []
+		}
+	]
+}
