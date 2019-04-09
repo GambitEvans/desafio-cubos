@@ -30,8 +30,9 @@ export default class SchedulingService extends SchedulingDAO {
                     return `O intervalo de ${schedule._interval._start} às 
                         ${schedule._interval._end} já está reservado para este dia.`;;
                 } else {
-                    this.insertInterval(schedule._date, schedule._interval);
-                    return `Os horários do dia ${schedule._date} foram atualizados`;
+                    this.insertInterval(schedule._date, schedule._type, schedule._interval);
+                    return `Os horários do agendamento ${this.schedulingUtis.getTypeName(schedule._type)} 
+                    do dia ${schedule._date} foram atualizados`;
                 }
             }
             this.createScheduling(scheduling);

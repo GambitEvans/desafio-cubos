@@ -39,7 +39,7 @@ export default class SchedulingDAO extends BaseDAO {
         return this.getEntity('scheduling').find({ _date: date, _type: type }).value();
     }
 
-    insertInterval(date: string, interval: Interval){
-        return this.getEntity('scheduling').find({ _date: date }).get('_interval').push(interval).write();
+    insertInterval(date: string, type: string, interval: Interval){
+        return this.getEntity('scheduling').find({ _date: date, _type: type }).get('_interval').push(interval).write();
     }
 }

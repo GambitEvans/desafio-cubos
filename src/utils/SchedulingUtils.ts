@@ -56,4 +56,13 @@ export default class SchedulingUtils {
         scheduling._interval.push(interval);
         return scheduling;
     }
+
+    getTypeName(type: string){
+        const typeName = {
+            'DAY': 'específico', 
+            'DAILY': 'diário', 
+            'WEEKLY': 'semanal'
+        };
+        return typeName[type];
+    }
 }
