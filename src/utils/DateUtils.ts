@@ -1,8 +1,9 @@
-import moment = require('moment');
+import * as moment from 'moment';
 
 export default class DateUtils {
-    
-    getWeekDay(date: Date): string {
+    atualDate = moment().format('DD-MM-YYYY');
+
+    getWeekDay(date: string): string {
         const days = ['DOMINGO', 'SEGUNDA', 'TERÇA', 'QUARTA', 'QUINTA', 'SEXTA', 'SÁBADO'];
         const day = moment(date, 'DD-MM-YYY'); 
         return days[day.weekday()];

@@ -14,47 +14,41 @@ export default class SchedulingUtils {
         if(!this.validationUtil.validateInterval(scheduleDTO.interval)){
             throw 'Erro - Verifique o intervalo.';
         }
-        if(scheduleDTO.type === 'DAILY'){
-            schedule._date = new Date(moment().format('DD-MM-YYYY'));
-            schedule._day = this.Util.getWeekDay(scheduleDTO.date);
-            schedule._interval._start = scheduleDTO.interval._start;
-            schedule._interval._end = scheduleDTO.interval._end;
-            return schedule;
-        } else if(scheduleDTO.type === 'WEEKLY') {
-            if(moment().weekday() == scheduleDTO.day){
-                schedule._date = new Date(moment().format('DD-MM-YYYY'));
-                schedule._day = this.Util.getWeekDayByIndex(scheduleDTO.day);
-                schedule._interval._start = scheduleDTO.interval._start;
-                schedule._interval._end = scheduleDTO.interval._end;
-                return schedule;
-            } else {
-                throw `Data de hoje incompatível com a regra de agendamento \n
-                Data - ${moment().format('DD-MM-YYYY')},  ${this.Util.getWeekDayByIndex(moment().weekday())}\n
-                Regra de disponibilidade - Todo dia de ${this.Util.getWeekDayByIndex(scheduleDTO.day)}.`;
-            }
-        } else if(scheduleDTO.type === 'DAY') {
+        if(scheduleDTO.type === 'DAY') {
             if(scheduleDTO.date === (null||undefined)){
                 throw 'Erro - Verifique a data';
             } else if(!moment(scheduleDTO.date, 'DD-MM-YYYY').isValid()) {
                 throw 'Data inválida!';
-            } else if(moment().isAfter(scheduleDTO.date)) {
+            } else if(moment().isAfter(new Date(scheduleDTO.date))) {
                 throw `Que eu saiba você não é o Matt McFly nem o DR. Emmett Brown pra viajar pelo tempo
             por isso não permitirei que agende um atendimento numa data passada.`;
             } 
             schedule._date = scheduleDTO.date;
-            schedule._day = this.Util.getWeekDay(scheduleDTO.date);
-            schedule._interval._start = scheduleDTO.interval._start;
-            schedule._interval._end = scheduleDTO.interval._end;
-            return schedule;
-        } else {
+        } else if(scheduleDTO.type === 'WEEKLY') {
+            if(moment().weekday() != scheduleDTO.day){
+                throw `Data de hoje incompatível com a regra de agendamento \n
+                Data - ${moment().format('DD-MM-YYYY')},  ${this.Util.getWeekDayByIndex(moment().weekday())}\n
+                Regra de disponibilidade - Todo dia de ${this.Util.getWeekDayByIndex(scheduleDTO.day)}.`;
+            }
+        } else if(scheduleDTO.type != 'DAILY') {
             throw 'Erro - Verifique o tipo do agendamento.';
         }
+        schedule._type = scheduleDTO.type;
+        if(schedule._date === (null || undefined)){
+            schedule._date = this.Util.atualDate;
+        }
+        schedule._day = this.Util.getWeekDay(scheduleDTO.date);
+        schedule._interval._start = scheduleDTO.interval._start;
+        schedule._interval._end = scheduleDTO.interval._end;
+
+        return schedule;
     }
 
     initScheduling(schedule: Schedule){
         let scheduling = new Scheduling([]);
         let interval = new Interval();
         scheduling._id = schedule._id;
+        scheduling._type = schedule._type;
         scheduling._date = schedule._date;
         scheduling._day = this.Util.getWeekDay(schedule._date);
         interval._start = schedule._interval._start;

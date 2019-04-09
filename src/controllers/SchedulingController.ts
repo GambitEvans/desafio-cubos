@@ -7,6 +7,7 @@ import SchedulingUtils from '../utils/SchedulingUtils';
 import Schedule from '../models/Schedule';
 import DateUtils from '../utils/DateUtils';
 import DateRangeDTO from '../dto/DateRangeDTO';
+import Interval from 'src/models/Interval';
 
 @Path('/schedules')
 export default class SchedulingController {

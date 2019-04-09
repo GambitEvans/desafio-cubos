@@ -30,16 +30,16 @@ export default class SchedulingDAO extends BaseDAO {
     }
 
     //verifies if exists a scheduling for a given date.
-    existScheduling(date: Date): boolean{
-        if(this.getEntity('scheduling').find({ _date: date }).value()!=null)return true;
+    existScheduling(date: string, type: string): boolean{
+        if(this.getSchedulingByDateAndType(date, type)!=null)return true;
         return false;
     }
 
-    getSchedulingsByDate(date: Date): Scheduling {
-        return this.getEntity('scheduling').find({ _date: date }).value();
+    getSchedulingByDateAndType(date: string, type: string): Scheduling {
+        return this.getEntity('scheduling').find({ _date: date, _type: type }).value();
     }
 
-    insertInterval(date: Date, interval: Interval){
+    insertInterval(date: string, interval: Interval){
         return this.getEntity('scheduling').find({ _date: date }).get('_interval').push(interval).write();
     }
 }

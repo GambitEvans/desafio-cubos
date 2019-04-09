@@ -23,8 +23,9 @@ export default class SchedulingService extends SchedulingDAO {
     postScheduling(schedule: Schedule): string{
         try{
             const scheduling = this.schedulingUtis.initScheduling(schedule);
-            if(this.existScheduling(schedule._date)){
-                const intervals = this.getSchedulingsByDate(schedule._date)._interval;
+            if(this.existScheduling(scheduling._date, scheduling._type)){
+                const intervals = this.getSchedulingByDateAndType(scheduling._date, 
+                    scheduling._type)._interval;
                 if(this.intervalExistInArray(intervals, schedule._interval)){
                     return `O intervalo de ${schedule._interval._start} às 
                         ${schedule._interval._end} já está reservado para este dia.`;;
@@ -39,10 +40,6 @@ export default class SchedulingService extends SchedulingDAO {
         } catch(e) {
             return e;
         }
-    }
-
-    getIntervalByDate(date: Date): Scheduling{
-        return this.getSchedulingsByDate(date);
     }
 
     remove(id: number){
@@ -60,12 +57,9 @@ export default class SchedulingService extends SchedulingDAO {
                 && intervalsEnd.isSame(intervalEnd))) {
                     exist = true; 
             } 
-            if(intervalsStart.isBetween(intervalsStart, intervalsEnd)
-                || intervalsEnd.isBetween(intervalStart, intervalEnd)){
+            if(intervalStart.isBetween(intervalsStart, intervalsEnd)
+                || intervalEnd.isBetween(intervalStart, intervalEnd)){
                     throw 'Horário conflitante com a agenda';
-            }
-            if(intervalsStart.isSameOrAfter(intervalsEnd)){
-                throw 'O horário de início não pode ser maior que o horário do fim atendimento';        
             }
         });
         return exist;    

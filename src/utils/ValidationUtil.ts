@@ -2,8 +2,10 @@ import * as moment from 'moment';
 import Interval from '../models/Interval';
 import Schedule from '../models/Schedule';
 import DateRangeDTO from '../dto/DateRangeDTO';
-
+import DataUtil from '../utils/DateUtils';
 export default class ValidationUtil {
+
+    Util = new DataUtil();
     validateInterval(interval: Interval): boolean{
         const start = moment(interval._start, 'HH:mm', true);
         const end = moment(interval._end, 'HH:mm', true);
@@ -25,9 +27,9 @@ export default class ValidationUtil {
         return true;
     }
 
-    dateIsValid(date: Date): boolean{
-        const today: Date = new Date(moment().format('DD-MM-YYYY')); 
-        const newDate = moment(date, 'DD-MM-YYYY');
+    dateIsValid(date: string): boolean{ 
+        const newDate = moment(new Date(date));
+        const today = moment(new Date(this.Util.atualDate));
         if(newDate.isAfter(today) 
             || !newDate.isValid()) return false;
         return true;

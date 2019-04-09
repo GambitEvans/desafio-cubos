@@ -1,8 +1,10 @@
 import Interval from './Interval';
+import { EnumType } from 'src/enum/EnumType';
 
 export default class Scheduling {
     public _id: number;
-    public _date: Date;
+    public _type: EnumType;
+    public _date: string;
     public _day: string;
     public _interval: Interval[];
 
